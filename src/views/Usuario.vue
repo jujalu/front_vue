@@ -3,10 +3,10 @@
     <form @submit.prevent="cadastrar">
       <h2>Usuário</h2>
       <div class="form-group">
-        <label for="usuario">Nome</label>
+        <label for="usuario">Usuario</label>
         <input type="text" id="usuario"
             class="form-control" required autofocus
-            v-model="usuario.nome">
+            v-model="usuario">
       </div>
       <div class="form-group">
         <label for="email">E-mail</label>
@@ -18,7 +18,7 @@
         <label for="senha">Senha</label>
         <input type="password" id="senha"
             class="form-control" required autofocus
-            v-model="usuario.senha">
+            v-model="senha">
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
     </form>
@@ -28,16 +28,14 @@
         <tr>
           <th>Id</th>
           <th>Nome</th>
-          <th>E-mail</th>
-          <th>Autorização</th>
+          <th>Email</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="usr in usuario" :key="usr.id">
+        <tr v-for="usr in usuarios" :key="usr.id">
           <td>{{ usr.id }}</td>
           <td>{{ usr.nome }}</td>
           <td>{{ usr.email }}</td>
-          <td>{{ usr.usuario.auth }}</td>
         </tr>
       </tbody>
     </table>
@@ -49,19 +47,11 @@ import axios from 'axios'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'produtos',
+  name: 'usuarios',
   data() {
     return {
-        produto:
-        {
-        nome: null,
-        marca: {
-            id: null
-        },
-        preco: null
-        },
-      produtos: [],
-      marcas:[]
+      usuario: null,
+      usuarios: []
     }
   },
   computed: {
@@ -72,32 +62,24 @@ export default {
   methods: {
     cadastrar() {
       axios.post('/login',
-         this.usuario)
+          {
+            nome: this.usuario,
+            email: this.email,
+            senha: this.senha
+          })
         .then(res => {
           console.log(res);
-          this.usuario=
-            {
-            nome: null,
-            email: null,
-            senha: null
-            }
+          this.usuario = '';
           this.atualizar();
         })
         .catch(error => console.log(error))
     },
     atualizar () {
-        axios.get('/login', 
-          { headers: { Accept: 'application/json' } })
-        .then(res => {
-          console.log(res)
-          this.usuario = res.data
-        })
-        .catch(error => console.log(error))
       axios.get('/login', 
           { headers: { Accept: 'application/json' } })
         .then(res => {
           console.log(res)
-          this.usuario = res.data
+          this.usuarios = res.data
         })
         .catch(error => console.log(error))
     }
