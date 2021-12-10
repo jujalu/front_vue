@@ -4,7 +4,6 @@
       <router-link to="/">Home</router-link> | 
       <router-link to="/marca">Marca</router-link> | 
       <router-link to="/produto">Produto</router-link> | 
-      <router-link to="/venda">Venda</router-link> | 
       <router-link to="/usuario" v-if="usuario.autorizacao == 'admin'">Usuario</router-link> <span v-if="usuario.autorizacao == 'admin'">| </span>
       <router-link to="/login">Login</router-link>
     </div>
