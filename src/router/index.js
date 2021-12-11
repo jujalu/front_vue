@@ -22,7 +22,7 @@ Vue.use(VueRouter)
   },
   {
     path: "/usuario",
-    name: "Usuario",
+    name: "Usuário",
     component: () => import("../views/Usuario.vue")
   },
   {
